@@ -5,7 +5,7 @@ description: Use when filing a new or moved wiki page to pick the right topic su
 
 # LLM Wiki — folder structure & categorization decision tree
 
-> Shared reference for `llm-wiki.ingest` (where to file a new/moved page) and `llm-wiki.audit` (checking a page sits in the right folder).
+> Shared reference for `llmwiki-ingest` (where to file a new/moved page) and `llmwiki-audit` (checking a page sits in the right folder).
 
 `wiki/` (the bundle root) uses topic subfolders to group concepts for human browsability (e.g. `wiki/architecture/`, `wiki/systems/`, `wiki/infrastructure/`, `wiki/business/`, `wiki/organisation/`, `wiki/maintenance/`, `wiki/development/`, `wiki/workstreams/`). This is safe for retrieval and for Obsidian, and matches OKF's bundle model (§3) where directory structure is a producer choice independent of the format itself:
 

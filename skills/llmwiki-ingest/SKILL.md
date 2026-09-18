@@ -1,7 +1,8 @@
 ---
-name: llm-wiki.ingest
+name: llmwiki-ingest
 description: "Use when ingesting raw/ sources (Confluence clippings, OneNote notes, PDFs, transcripts) into wiki/ concept pages per OKF v0.2 — handles a named source or an unscoped 'ingest new' sweep."
 metadata:
+  copilot-enabled-agents: claude, codex, opencode
   tags: [wiki, knowledge-base, ingest, okf]
 ---
 
@@ -62,7 +63,7 @@ When the user asks to ingest new material without naming a specific file (e.g. "
 
 ## After ingesting
 
-Run `node ../llm-wiki.audit/tools/check-okf.mjs` (first `npm install` once in that folder) to verify OKF conformance before considering the change done — don't hand-roll an ad-hoc equivalent check.
+Run `node ../llmwiki-audit/tools/check-okf.mjs` (first `npm install` once in that folder) to verify OKF conformance before considering the change done — don't hand-roll an ad-hoc equivalent check.
 
 ## Rules
 
@@ -70,4 +71,4 @@ Run `node ../llm-wiki.audit/tools/check-okf.mjs` (first `npm install` once in th
 - ALWAYS update `wiki/index.md` (and the relevant folder `index.md`) and append to `wiki/log.md` after any change.
 - ALWAYS give every new or edited concept page a conformant frontmatter block (`type` required; `title`/`description`/`tags`/`sources`/`generated` as applicable) before considering the change done.
 - When uncertain how to categorize something, ask the user.
-- A good answer surfaced by `llm-wiki.ask`'s raw/ fallback should be filed back into the wiki via this skill so it compounds over time.
+- A good answer surfaced by `llmwiki-ask`'s raw/ fallback should be filed back into the wiki via this skill so it compounds over time.

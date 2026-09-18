@@ -5,7 +5,7 @@ description: LLM Wiki — rules for maintaining the personal knowledge base as a
 
 # LLM Wiki Instructions
 
-`wiki/` is a Knowledge Bundle following the [Open Knowledge Format (OKF) v0.2](https://github.com/): a directory of markdown concept files, each with a YAML frontmatter block. The llm-wiki skill is split into three: `.github/skills/llm-wiki.ask/SKILL.md` (questions), `.github/skills/llm-wiki.ingest/SKILL.md` (ingesting `raw/` sources), `.github/skills/llm-wiki.audit/SKILL.md` (lint/audit) — shared template/decision-tree/log-format details live in `.github/skills/llm-wiki.ingest/references/` and are referenced by all three. This file states the binding rules.
+`wiki/` is a Knowledge Bundle following the [Open Knowledge Format (OKF) v0.2](https://github.com/): a directory of markdown concept files, each with a YAML frontmatter block. The llm-wiki skill is split into three: `.github/skills/llmwiki-ask/SKILL.md` (questions), `.github/skills/llmwiki-ingest/SKILL.md` (ingesting `raw/` sources), `.github/skills/llmwiki-audit/SKILL.md` (lint/audit) — shared template/decision-tree/log-format details live in `.github/skills/llmwiki-ingest/references/` and are referenced by all three. This file states the binding rules.
 
 ## Folder contract
 
@@ -25,17 +25,17 @@ description: LLM Wiki — rules for maintaining the personal knowledge base as a
 3. Prefer also setting `title`, `description`, `tags`, `sources`, and `generated: { by, at }` — optional per OKF, but expected practice in this vault (see the SKILL.md template).
 4. Never reject or refuse to process a page for missing optional fields, an unfamiliar `type` value, unknown extra frontmatter keys, or a broken `[[wikilink]]` — OKF explicitly treats these as soft guidance (§11), not conformance failures.
 5. A bare `verified: { by, at }` mapping counts as a one-element list.
-6. Verify conformance with `.github/skills/llm-wiki.audit/tools/check-okf.mjs` (`npm install` once in that folder, then `node` it) rather than a one-off ad-hoc script.
+6. Verify conformance with `.github/skills/llmwiki-audit/tools/check-okf.mjs` (`npm install` once in that folder, then `node` it) rather than a one-off ad-hoc script.
 
 ## When to load an llm-wiki skill
 
-- Asks to **ingest** a note or file from `raw/` (any source collection under it), or to **ingest new** material without naming a file (e.g. "ingest new Clippings") → load `.github/skills/llm-wiki.ingest/SKILL.md` (its "Trigger: ingest new" covers collection scoping: defaults to `raw/Clippings/`; `raw/OneNote/` is legacy and excluded by default).
-- Asks a **question** — whether phrased as "what does the wiki say about X" or as any plain question about a topic at the company (a system, process, person, test code/data, etc.) that could plausibly be covered by the wiki — or asks to **save** an answer as a new wiki page → load `.github/skills/llm-wiki.ask/SKILL.md`.
-- Asks to **lint**, **audit**, or **check** the wiki → load `.github/skills/llm-wiki.audit/SKILL.md`.
+- Asks to **ingest** a note or file from `raw/` (any source collection under it), or to **ingest new** material without naming a file (e.g. "ingest new Clippings") → load `.github/skills/llmwiki-ingest/SKILL.md` (its "Trigger: ingest new" covers collection scoping: defaults to `raw/Clippings/`; `raw/OneNote/` is legacy and excluded by default).
+- Asks a **question** — whether phrased as "what does the wiki say about X" or as any plain question about a topic at the company (a system, process, person, test code/data, etc.) that could plausibly be covered by the wiki — or asks to **save** an answer as a new wiki page → load `.github/skills/llmwiki-ask/SKILL.md`.
+- Asks to **lint**, **audit**, or **check** the wiki → load `.github/skills/llmwiki-audit/SKILL.md`.
 
 ## Search order for questions
 
-Default to `wiki/` only, and answer from there if it has enough (`llm-wiki.ask` Phase 1). Only search `raw/` as a second step — and only after asking the user — if `wiki/` had nothing or just a partial answer (Phase 2). Never search both in the same pass, e.g. a single `grep`/`glob` spanning `wiki/**` and `raw/**` together. This order is binding even outside a formally loaded skill: don't reach for `raw/` (or the vault at large) with an ad-hoc `grep`/`glob`/`read` just because `llm-wiki.ask` wasn't explicitly invoked — load it, or at minimum follow its search order, for any in-scope question.
+Default to `wiki/` only, and answer from there if it has enough (`llmwiki-ask` Phase 1). Only search `raw/` as a second step — and only after asking the user — if `wiki/` had nothing or just a partial answer (Phase 2). Never search both in the same pass, e.g. a single `grep`/`glob` spanning `wiki/**` and `raw/**` together. This order is binding even outside a formally loaded skill: don't reach for `raw/` (or the vault at large) with an ad-hoc `grep`/`glob`/`read` just because `llmwiki-ask` wasn't explicitly invoked — load it, or at minimum follow its search order, for any in-scope question.
 
 ## Immutability guard
 
@@ -49,4 +49,4 @@ When linting or auditing the wiki, report findings and proposed fixes first; onl
 
 - Wiki page filenames: lowercase, hyphens only, `.md`, unique across the whole `wiki/` tree (wikilinks resolve by filename, not path).
 - Inline per-claim citations: `(source: raw/<collection>/<path>)`, matching a `sources[].resource` entry in frontmatter; mark unsourced claims `[needs verification]`; note contradictions inline.
-- Full frontmatter template, actor convention, and topic-subfolder/decision-tree rules: `.github/skills/llm-wiki.ingest/references/` (`page-format.md`, `folder-structure.md`) — don't duplicate them here.
+- Full frontmatter template, actor convention, and topic-subfolder/decision-tree rules: `.github/skills/llmwiki-ingest/references/` (`page-format.md`, `folder-structure.md`) — don't duplicate them here.

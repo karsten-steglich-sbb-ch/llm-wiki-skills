@@ -5,7 +5,7 @@ description: Use when appending a new entry to wiki/log.md.
 
 # LLM Wiki — log format (`wiki/log.md`, per OKF §9)
 
-> Shared reference for `llm-wiki.ingest` and `llm-wiki.audit` — both append to `wiki/log.md`.
+> Shared reference for `llmwiki-ingest` and `llmwiki-audit` — both append to `wiki/log.md`.
 
 `wiki/log.md` is a flat list of date-grouped entries, newest first:
 

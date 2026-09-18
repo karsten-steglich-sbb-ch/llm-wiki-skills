@@ -2,7 +2,7 @@
 /**
  * check-okf — validates OKF v0.2 frontmatter conformance across a wiki bundle.
  *
- * Checks (per .github/skills/llm-wiki.audit/SKILL.md and OKF v0.2 §11):
+ * Checks (per .github/skills/llmwiki-audit/SKILL.md and OKF v0.2 §11):
  *   - Every concept file (any .md that isn't index.md/log.md) has a parseable
  *     YAML frontmatter block with a non-empty `type`.
  *   - `log.md` files carry no frontmatter at all.
@@ -12,7 +12,7 @@
  * First run in this folder: `npm install` (installs js-yaml, the only dependency).
  *
  * Usage:
- *   node .github/skills/llm-wiki.audit/tools/check-okf.mjs [--root <wiki-dir>]
+ *   node .github/skills/llmwiki-audit/tools/check-okf.mjs [--root <wiki-dir>]
  *
  * Defaults --root to the `wiki/` folder at the vault root (four levels up
  * from this script's own location). Exits 1 if any issue was found, 0 otherwise.
@@ -27,7 +27,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 function parseArgs(argv) {
   const args = argv.slice(2);
-  // tools/check-okf.mjs -> llm-wiki.audit -> skills -> .github -> vault root
+  // tools/check-okf.mjs -> llmwiki-audit -> skills -> .github -> vault root
   let root = resolve(__dirname, "../../../../wiki");
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--root" && args[i + 1]) {

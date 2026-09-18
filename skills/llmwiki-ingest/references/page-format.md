@@ -5,7 +5,7 @@ description: Use when creating or editing a wiki concept page, or when auditing 
 
 # LLM Wiki — page format (OKF concept)
 
-> Shared reference for `llm-wiki.ingest` (creates/edits pages) and `llm-wiki.audit` (checks conformance against this template).
+> Shared reference for `llmwiki-ingest` (creates/edits pages) and `llmwiki-audit` (checks conformance against this template).
 
 Every wiki concept page (i.e. every `.md` file in `wiki/` other than `index.md`/`log.md`) must follow this template:
 
