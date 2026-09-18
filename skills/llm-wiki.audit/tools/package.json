@@ -1,0 +1,8 @@
+{
+  "name": "llm-wiki-tools",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
